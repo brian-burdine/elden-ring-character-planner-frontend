@@ -6,6 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 import App from './App';
+import Login from './components/user/Login';
 import Register from './components/user/Register';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,6 +15,7 @@ root.render(
     <Router>
       <Routes>
         <Route path='/' element={<App />}>
+          <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
         </Route>
       </Routes>

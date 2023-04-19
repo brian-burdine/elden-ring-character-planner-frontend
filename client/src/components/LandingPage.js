@@ -8,7 +8,7 @@ function LandingPage () {
         <>
             {!state.currentUser && (
                 <>
-                    <p>Sign-In</p>
+                    <p><Link to ="/login">Sign-In</Link></p>
                     <p>or</p>
                     <p><Link to="/register">Register</Link></p>
                 </>
