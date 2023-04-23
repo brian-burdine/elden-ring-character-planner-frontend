@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGlobalState } from "../../context/GlobalState";
 import request from "../../services/api.request";
+import CharacterNameField from "./Name";
 
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
@@ -9,20 +10,16 @@ function Planner () {
         name: ""
     });
 
-    function handleChange (key, value) {
-        setCharacter({
-            ...character,
-            [key]: value
-        })
-    }
-
     return (
         <div className="container" id="planner-page">
             <div className="row m-3">
                 <p>The planner page!</p>
                 <div className="col-md">
                     <p>Column 1</p>
-                    <input type="text" id="character-name" maxLength="16" onChange={(e) => handleChange("name", e.target.value)} />
+                    <CharacterNameField 
+                        character={character} 
+                        setCharacter={setCharacter} 
+                    />
                 </div>
                 <div className="col-md-5">
                     <span>Column 2</span>
