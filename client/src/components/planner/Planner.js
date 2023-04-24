@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { useGlobalState } from "../../context/GlobalState";
 import request from "../../services/api.request";
-import CharacterNameField from "./Name";
+import CharacterNameField from "./CharacterNameField";
+import CharacterButton from "../CharacterButton";
 
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
-
-    const [character, setCharacter] = useState({
-        name: ""
-    });
 
     return (
         <div className="container" id="planner-page">
@@ -16,10 +13,7 @@ function Planner () {
                 <p>The planner page!</p>
                 <div className="col-md">
                     <p>Column 1</p>
-                    <CharacterNameField 
-                        character={character} 
-                        setCharacter={setCharacter} 
-                    />
+                    <CharacterNameField />
                 </div>
                 <div className="col-md-5">
                     <span>Column 2</span>
@@ -28,7 +22,7 @@ function Planner () {
                     <span>Column 3</span>
                 </div>
             </div>
-            <button>Save Character</button>
+            <CharacterButton buttonType="save" />
         </div>
     )
 }

@@ -20,6 +20,7 @@ function Login () {
             .then(async (resp) => {
                 let data = jwtDecode(resp.access)
                 await dispatch({
+                    ...state,
                     currentUserToken: resp.access,
                     currentUser: data
                 })

@@ -1,9 +1,15 @@
-function CharacterNameField ({character, setCharacter}) {
+import { useGlobalState } from "../../context/GlobalState";
+
+function CharacterNameField () {
+    const [state, dispatch] = useGlobalState();
   
     function handleChange (key, value) {
-        setCharacter({
-            ...character,
-            [key]: value
+        dispatch({
+            ...state,
+            currentCharacter: {
+                ...currentCharacter,
+                [key]: value
+            }
         })
     }
 
