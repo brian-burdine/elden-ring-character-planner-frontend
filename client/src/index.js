@@ -5,10 +5,12 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import App from './App';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
-import Planner from './components/Planner';
+import Planner from './components/planner/Planner';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
