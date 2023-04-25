@@ -11,9 +11,11 @@ function CharacterButton({ buttonType }) {
       ...state,
       currentCharacter: {
         id: "",
-        name: ""
+        name: "",
+        starting_class: 1
       }
     })
+    localStorage.removeItem("character")
     navigate("/planner");
   }
   
@@ -35,6 +37,7 @@ function CharacterButton({ buttonType }) {
             method: 'POST',
             data: {
               "name": state.currentCharacter.name,
+              "starting_class": state.currentCharacter.starting_class,
               "owner": state.currentUser.user_id
             },
           });
@@ -56,6 +59,7 @@ function CharacterButton({ buttonType }) {
             method: 'PUT',
             data: {
               "name": state.currentCharacter.name,
+              "starting_class": state.currentCharacter.starting_class,
               "owner": state.currentUser.user_id
             },
           })
@@ -69,12 +73,16 @@ function CharacterButton({ buttonType }) {
 
   if (buttonType === "add") {
     return (
-      <button 
-        className="btn add-button"
-        onClick={handleAddACharacter}
-      >
-        +
-      </button>
+      <>
+        <button 
+          className="btn add-button"
+          id="add-character"
+          onClick={handleAddACharacter}
+        >
+          +
+        </button>
+        <label htmlFor="add-character">Add a character</label>
+      </>
     )
   }
   else if (buttonType === "save") {

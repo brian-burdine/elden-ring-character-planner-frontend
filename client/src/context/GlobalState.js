@@ -14,7 +14,8 @@ import React, {
     currentUserToken: user ? user.access : null,
     currentCharacter: character ? character : {
       id: "",
-      name: ""
+      name: "",
+      starting_class: 1
     }
   }
   
