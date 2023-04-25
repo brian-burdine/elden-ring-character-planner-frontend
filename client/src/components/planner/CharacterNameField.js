@@ -7,7 +7,7 @@ function CharacterNameField () {
         dispatch({
             ...state,
             currentCharacter: {
-                ...currentCharacter,
+                ...state.currentCharacter,
                 [key]: value
             }
         })
@@ -22,7 +22,7 @@ function CharacterNameField () {
                 maxLength="16" 
                 onChange={(e) => handleChange("name", e.target.value)} 
             />
-            <span>{character?.name?.length} / 16 characters</span>
+            <span>{state.currentCharacter?.name?.length} / 16 characters</span>
         </>
     )
 }

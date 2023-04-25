@@ -41,8 +41,8 @@ function CharacterButton({ buttonType }) {
           dispatch({
             ...state,
             currentCharacter: {
-              ...currentCharacter,
-              [id]: response.data.id
+              ...state.currentCharacter,
+              id: response.data.id
             }
           });
         } catch (error) {
@@ -52,7 +52,7 @@ function CharacterButton({ buttonType }) {
       else {
         try {
           const response = await request({
-            url: 'characters/',
+            url: 'characters/' + state.currentCharacter.id + '/',
             method: 'PUT',
             data: {
               "name": state.currentCharacter.name,
