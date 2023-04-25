@@ -18,8 +18,8 @@ function PlannerDropdownItem ({menuName, sourceArray, keyName}) {
             <span>
                 {
                     sourceArray.filter((obj) => {
-                        return obj.id === state.currentCharacter[keyName];
-                    }).name
+                        return obj.id == state.currentCharacter[keyName];
+                    })[0]?.name
                 }
             </span>
             <div className="dropdown">
