@@ -15,6 +15,7 @@ function CharacterButton({ buttonType }) {
         starting_class: 1
       }
     })
+    localStorage.removeItem("character")
     navigate("/planner");
   }
   
@@ -58,6 +59,7 @@ function CharacterButton({ buttonType }) {
             method: 'PUT',
             data: {
               "name": state.currentCharacter.name,
+              "starting_class": state.currentCharacter.starting_class,
               "owner": state.currentUser.user_id
             },
           })

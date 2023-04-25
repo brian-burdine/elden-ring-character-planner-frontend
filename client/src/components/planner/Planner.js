@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useGlobalState } from "../../context/GlobalState";
 import request from "../../services/api.request";
 import CharacterNameField from "./CharacterNameField";
-import StartingClassSelectField from "./StartingClassSelectField";
+import PlannerDropdownItem from "./PlannerDropdownItem";
 import CharacterButton from "../CharacterButton";
 
 function Planner () {
@@ -28,7 +28,11 @@ function Planner () {
                 <div className="col-md">
                     <h3 className="column-header">Basic Characteristics</h3>
                     <CharacterNameField />
-                    <StartingClassSelectField />
+                    <PlannerDropdownItem 
+                        menuName="Starting Class"
+                        sourceArray={startingClasses} 
+                        keyName="starting_class"  
+                    />
                 </div>
                 <div className="col-md-5">
                     <h3 className="column-header">Equipment</h3>
