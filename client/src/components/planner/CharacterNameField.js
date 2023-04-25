@@ -1,9 +1,15 @@
-function CharacterNameField ({character, setCharacter}) {
+import { useGlobalState } from "../../context/GlobalState";
+
+function CharacterNameField () {
+    const [state, dispatch] = useGlobalState();
   
     function handleChange (key, value) {
-        setCharacter({
-            ...character,
-            [key]: value
+        dispatch({
+            ...state,
+            currentCharacter: {
+                ...state.currentCharacter,
+                [key]: value
+            }
         })
     }
 
@@ -16,7 +22,7 @@ function CharacterNameField ({character, setCharacter}) {
                 maxLength="16" 
                 onChange={(e) => handleChange("name", e.target.value)} 
             />
-            <span>{character?.name?.length} / 16 characters</span>
+            <span>{state.currentCharacter?.name?.length} / 16 characters</span>
         </>
     )
 }

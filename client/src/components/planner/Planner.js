@@ -1,34 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalState } from "../../context/GlobalState";
 import request from "../../services/api.request";
-import CharacterNameField from "./Name";
+import CharacterNameField from "./CharacterNameField";
+import CharacterButton from "../CharacterButton";
 
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
 
-    const [character, setCharacter] = useState({
-        name: ""
-    });
+    // useEffect(() => {
+    //     async function getERData () {
+    //         let options = {}
+    //     }
+    //     getERData();
+    // }, [])
 
     return (
         <div className="container" id="planner-page">
             <div className="row m-3">
                 <p>The planner page!</p>
                 <div className="col-md">
-                    <p>Column 1</p>
-                    <CharacterNameField 
-                        character={character} 
-                        setCharacter={setCharacter} 
-                    />
+                    <h3 className="column-header">Basic Characteristics</h3>
+                    <CharacterNameField />
                 </div>
                 <div className="col-md-5">
-                    <span>Column 2</span>
+                    <h3 className="column-header">Equipment</h3>
                 </div>
                 <div className="col-md">
-                    <span>Column 3</span>
+                    <h3 className="column-header">Derived Statistics</h3>
                 </div>
             </div>
-            <button>Save Character</button>
+            <CharacterButton buttonType="save" />
         </div>
     )
 }
