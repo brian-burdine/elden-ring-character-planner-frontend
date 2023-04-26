@@ -15,7 +15,17 @@ import React, {
     currentCharacter: character ? character : {
       id: "",
       name: "",
-      startingClass: 1
+      startingClass: 1,
+      leveledAttributes: {
+        "Vigor": 0,
+        "Mind": 0,
+        "Endurance": 0,
+        "Strength": 0,
+        "Dexterity": 0,
+        "Intelligence": 0,
+        "Faith": 0,
+        "Arcane": 0
+      }
     }
   }
   
