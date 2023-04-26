@@ -3,28 +3,37 @@ import { useGlobalState } from "../../context/GlobalState";
 
 function LevelField ({ startingClasses }) {
     const [state, dispatch] = useGlobalState();
-    
-    const [level, setLevel] = useState(0);
 
     let startingClass = {};
     if (startingClasses.length > 0) {
         startingClass = startingClasses.filter((sc) => {
             return sc.id == state.currentCharacter.startingClass
         })[0];
-        let startingLevel = -79;
-        for (let attr of startingClass.attributes) {
-            startingLevel += attr.base_value;
-        }
-        setLevel(startingLevel);
     }
+    
+    function calculateLevel () {
+        let level = -79;
+        if (startingClass) {    
+            for (let attr of startingClass.attributes) {
+                level += attr.base_value;
+            }
+        }
+        return level;
+    }
+    let startingLevel = calculateLevel();
+
+    const [level, setLevel] = useState(startingLevel);
 
     const levelTableHeaders = ["Attribute", "Base", "Level", "Total"];
     const mainAttributes = ["Vigor", "Mind", "Endurance", "Strength", 
         "Dexterity", "Intelligence", "Faith", "Arcane"];
 
     function handleChange (targetAttr, e) {
-        value = e.target.value;
-        maxLevel = 99 - state.currentCharacter.attributes[targetAttr];
+        let value = Number(e.target.value);
+        if (isNaN(value)) {
+            value = 0;
+        }
+        let maxLevel = 99 - state.currentCharacter.leveledAttributes[targetAttr];
         if (value > maxLevel) {
             value = maxLevel;
             e.target.value = value;
@@ -39,6 +48,8 @@ function LevelField ({ startingClasses }) {
                 }
             }
         })
+        let newLevel = calculateLevel();
+        setLevel(newLevel);
     }
 
     return (
@@ -64,12 +75,12 @@ function LevelField ({ startingClasses }) {
                                 <tr key={index}>
                                     <th scope="row">{attr}</th>
                                     <td>
-                                        {startingClass?.attributes[index]}
+                                        {startingClass?.attributes[index].base_value}
                                     </td>
                                     <td>
                                         <input
                                             id={`level-${attr}`}
-                                            type="number"
+                                            type="text"
                                             maxlength="2"
                                             value={state.currentCharacter.leveledAttributes[attr]}
                                             onChange={(e) => handleChange( attr, e)}
@@ -77,7 +88,7 @@ function LevelField ({ startingClasses }) {
                                     </td>
                                     <td>
                                         {
-                                            startingClass?.attributes[index]
+                                            startingClass?.attributes[index].base_value
                                                 + state.currentCharacter.leveledAttributes[attr]
                                         }
                                     </td>
