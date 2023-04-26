@@ -15,7 +15,7 @@ import React, {
     currentCharacter: character ? character : {
       id: "",
       name: "",
-      starting_class: 1
+      startingClass: 1
     }
   }
   

@@ -12,7 +12,7 @@ function CharacterButton({ buttonType }) {
       currentCharacter: {
         id: "",
         name: "",
-        starting_class: 1
+        startingClass: 1
       }
     })
     localStorage.removeItem("character")
@@ -59,7 +59,7 @@ function CharacterButton({ buttonType }) {
             method: 'PUT',
             data: {
               "name": state.currentCharacter.name,
-              "starting_class": state.currentCharacter.starting_class,
+              "starting_class": state.currentCharacter.startingClass,
               "owner": state.currentUser.user_id
             },
           })
