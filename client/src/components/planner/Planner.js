@@ -4,6 +4,7 @@ import request from "../../services/api.request";
 import CharacterNameField from "./CharacterNameField";
 import PlannerDropdownItem from "./PlannerDropdownItem";
 import CharacterButton from "../CharacterButton";
+import LevelField from "./LevelField";
 
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
@@ -31,8 +32,11 @@ function Planner () {
                     <PlannerDropdownItem 
                         menuName="Starting Class"
                         sourceArray={startingClasses} 
-                        keyName="starting_class"  
+                        keyName="startingClass"  
                     />
+                    {startingClasses.length > 0 
+                        && <LevelField startingClasses={startingClasses} /> 
+                    }
                 </div>
                 <div className="col-md-5">
                     <h3 className="column-header">Equipment</h3>

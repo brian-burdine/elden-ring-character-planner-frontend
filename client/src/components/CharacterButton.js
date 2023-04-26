@@ -12,7 +12,17 @@ function CharacterButton({ buttonType }) {
       currentCharacter: {
         id: "",
         name: "",
-        starting_class: 1
+        startingClass: 1,
+        leveledAttributes: {
+          "Vigor": 0,
+          "Mind": 0,
+          "Endurance": 0,
+          "Strength": 0,
+          "Dexterity": 0,
+          "Intelligence": 0,
+          "Faith": 0,
+          "Arcane": 0
+        }
       }
     })
     localStorage.removeItem("character")
@@ -59,7 +69,7 @@ function CharacterButton({ buttonType }) {
             method: 'PUT',
             data: {
               "name": state.currentCharacter.name,
-              "starting_class": state.currentCharacter.starting_class,
+              "starting_class": state.currentCharacter.startingClass,
               "owner": state.currentUser.user_id
             },
           })
