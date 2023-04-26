@@ -9,15 +9,50 @@ import LevelField from "./LevelField";
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
     const [startingClasses, setStartingClasses] = useState([]);
+    const [weapons, setWeapons] = useState([]);
 
     useEffect(() => {
         async function getERData () {
-            let options = {
-                url: 'starting_classes/',
-                method: 'GET'
+            function getLocal (storageName) {
+                const saved_data = localStorage.getItem(storageName);
+                if (saved_data && saved_data.length > 0) {
+                    return JSON.parse(saved_data);
+                } else {
+                    return [];
+                }
             }
-            let response = await request(options);
-            setStartingClasses(response.data);
+
+            function setLocal (storageName, data) {
+                localStorage.setItem(storageName, JSON.stringify(data));
+            }
+
+            const ERData = [
+                {
+                    storage: "startingClasses",
+                    endpoint: "starting_classes/",
+                    setter: setStartingClasses
+                }, 
+                {
+                    storage: "weapons",
+                    endpoint:"weapons/",
+                    setter: setWeapons
+                }
+            ]
+
+            for (let table of ERData) {
+                let data = getLocal(table.storage);
+                if (data.length > 0) {
+                    table.setter(data);
+                } else {
+                    let options = {
+                        url: table.endpoint,
+                        method: 'GET'
+                    }
+                    let response = await request(options);
+                    table.setter(response.data);
+                    setLocal(table.storage, response.data)
+                }
+            } 
         }
         getERData();
     }, [])
