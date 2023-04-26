@@ -34,7 +34,9 @@ function Planner () {
                         sourceArray={startingClasses} 
                         keyName="startingClass"  
                     />
-                    <LevelField startingClasses={startingClasses} />
+                    {startingClasses.length > 0 
+                        && <LevelField startingClasses={startingClasses} /> 
+                    }
                 </div>
                 <div className="col-md-5">
                     <h3 className="column-header">Equipment</h3>

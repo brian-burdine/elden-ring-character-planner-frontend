@@ -7,7 +7,7 @@ function LevelField ({ startingClasses }) {
     const [level, setLevel] = useState(0);
 
     let startingClass = {};
-    if (startingClasses) {
+    if (startingClasses.length > 0) {
         startingClass = startingClasses.filter((sc) => {
             return sc.id == state.currentCharacter.startingClass
         })[0];
@@ -22,7 +22,13 @@ function LevelField ({ startingClasses }) {
     const mainAttributes = ["Vigor", "Mind", "Endurance", "Strength", 
         "Dexterity", "Intelligence", "Faith", "Arcane"];
 
-    function handleChange (targetAttr, value) {
+    function handleChange (targetAttr, e) {
+        value = e.target.value;
+        maxLevel = 99 - state.currentCharacter.attributes[targetAttr];
+        if (value > maxLevel) {
+            value = maxLevel;
+            e.target.value = value;
+        }
         dispatch({
             ...state,
             currentCharacter: {
@@ -64,8 +70,9 @@ function LevelField ({ startingClasses }) {
                                         <input
                                             id={`level-${attr}`}
                                             type="number"
+                                            maxlength="2"
                                             value={state.currentCharacter.leveledAttributes[attr]}
-                                            onChange={(e) => handleChange( attr, e.target.value)}
+                                            onChange={(e) => handleChange( attr, e)}
                                         />
                                     </td>
                                     <td>
