@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import jwtDecode from "jwt-decode";
+import { useGlobalState } from "../../context/GlobalState";
 import AuthService from '../../services/auth.service';
 
 /*
@@ -11,6 +14,10 @@ import AuthService from '../../services/auth.service';
 */
 
 function Register () {
+    let navigate = useNavigate();
+
+    const [state, dispatch] = useGlobalState();
+
     // Create a user object to use for the registration request
     const [user, setUser] = useState({
         username: "",
@@ -31,10 +38,20 @@ function Register () {
 
     // When user submits form, blocks the normal form submission behavior and
     // instead calls register function with user object to request a new user
-    // be added
+    // be added and log-in as that user
     function handleRegister (e) {
         e.preventDefault();
-        AuthService.register(user)
+        AuthService
+            .register(user)
+            .then(async (resp) => {
+                let data = jwtDecode(resp.access)
+                await dispatch({
+                    ...state,
+                    currentUserToken: resp.access,
+                    currentUser: data
+                })
+                navigate('/')
+            });
     }
 
     // Create a form to enter username, password, and e-mail

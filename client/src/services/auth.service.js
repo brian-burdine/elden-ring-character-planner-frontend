@@ -54,7 +54,8 @@ import {
           },
         });
   
-        await this.login(username, password);
+        const response = await this.login(username, password);
+        return response;
       } catch (error) {
         return error.response;
       }
