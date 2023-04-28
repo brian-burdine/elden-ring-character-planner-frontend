@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import request from "../services/api.request";
 import { useGlobalState } from "../context/GlobalState";
 
-function CharacterButton({ buttonType }) {
+function CharacterButton({ buttonType, character, characters, setCharacters }) {
   let navigate = useNavigate();
   const [state, dispatch] = useGlobalState();
 
@@ -338,6 +338,39 @@ function CharacterButton({ buttonType }) {
     alert(`Character ${state.currentUser ? state.currentCharacter.id : ""} saved!`);
   }
 
+  async function handleEditACharacter (character) {
+    const response = await request({
+      url: 'character_attributes/',
+      method: 'GET'
+    });
+    let currCharAttrs = response.data.filter((obj) => {
+      return obj.character === character.id;
+    });
+
+    await dispatch({
+      ...state,
+      currentCharacter: {
+        ...state.currentCharacter,
+        id: character.id,
+        name: character.name,
+        startingClass: character.starting_class
+      }
+    });
+    localStorage.setItem('character', JSON.stringify(state.currentCharacter));
+    navigate("/planner");
+  }
+
+  async function handleDelete (character, characters, setCharacters) {
+    const response = await request({
+      url: 'characters/' + character.id + '/',
+      method: 'DELETE'
+    });
+    let newCharacters = characters.filter((obj) => {
+      return obj.id !== character.id;
+    });
+    setCharacters(newCharacters);
+  }
+
   if (buttonType === "add") {
     return (
       <>
@@ -369,6 +402,26 @@ function CharacterButton({ buttonType }) {
         onClick={handleExistingSave}
       >
         Save Character
+      </button>
+    )
+  }
+  else if (buttonType === "edit") {
+    return (
+      <button
+        className="btn btn-primary edit-button"
+        onClick={(e) => handleEditACharacter(character)}
+      >
+        Edit Character
+      </button>
+    )
+  }
+  else if (buttonType === "del") {
+    return (
+      <button
+        className="btn btn-danger del-button"
+        onClick={(e) => handleDelete(character, characters, setCharacters)}
+      >
+        Delete Character
       </button>
     )
   }
