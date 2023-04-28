@@ -13,7 +13,7 @@ function WeaponsField ({weapons}) {
                     rightHandSlots.map((slot) => {
                         return (
                             <WeaponDropdownField
-                                key={slot} 
+                                key={`Right Hand ${slot}`} 
                                 weapons={weapons}
                                 slot={slot}
                             />
@@ -27,7 +27,7 @@ function WeaponsField ({weapons}) {
                     leftHandSlots.map((slot) => {
                         return (
                             <WeaponDropdownField
-                                key={slot}
+                                key={`Left Hand ${slot - 3}`}
                                 weapons={weapons}
                                 slot={slot}
                             />

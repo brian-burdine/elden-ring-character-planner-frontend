@@ -76,30 +76,6 @@ function CharacterButton({ buttonType }) {
             equipId: null
           }
         ]
-        // weapons: {
-        //   rightHand: [
-        //     {
-        //       id: 0
-        //     }, 
-        //     {
-        //       id: 0
-        //     }, 
-        //     {
-        //       id: 0
-        //     }
-        //   ],
-        //   leftHand: [
-        //     {
-        //       id: 0
-        //     }, 
-        //     {
-        //       id: 0
-        //     }, 
-        //     {
-        //       id: 0
-        //     }
-        //   ]
-        // }
       }
     })
     localStorage.removeItem("character");
@@ -200,7 +176,70 @@ function CharacterButton({ buttonType }) {
       } catch (error) {
         return error.response;
       }
+    }
   }
+
+  async function characterWeaponUpdate (characterId) {
+    let charWeaponsIds = [];
+    for (let i=0; i < state.currentCharacter.weapons.length; i++) {
+      if (!state.currentCharacter.weapons[i].id 
+          && !state.currentCharacter.weapons[i].equipId) {
+        // Weapon slot was empty and stayed empty, make no changes
+            charWeaponsIds.push(null);
+      } else if (!state.currentCharacter.weapons[i].id
+          && state.currentCharacter.weapons[i].equipId) {
+        // Weapon was added to a slot that was empty, create a new record
+        try {
+          const response = await request({
+            url: 'character_weapons/',
+            method: 'POST',
+            data: {
+              character: characterId,
+              armament: state.currentCharacter.weapons[i].equipId,
+              slot: i + 1
+            }
+          });
+          charWeaponsIds.push(response.data.id);
+        } catch (error) {
+          return error.response;
+        }
+      } else if (state.currentCharacter.weapons[i].id 
+          && !state.currentCharacter.weapons[i].equipId) {
+        // Weapon previously equipped was removed, delete record
+        try {
+          const response = await request({
+            url: 'character_weapons/'
+              + state.currentCharacter.weapons[i].id
+              + '/',
+            method: 'DELETE'
+          });
+          charWeaponsIds.push(null);
+        } catch (error) {
+          return error.response;
+        }
+      } else {
+        // Weapon was equipped, may or may not have changed, update record
+        // TODO: Figure out how to skip this if the record was unchanged
+        // (Have to track what equipId was last posted somehow)
+        try {
+          const response = await request({
+            url: 'character_weapons/'
+              + state.currentCharacter.weapons[i].id
+              + '/',
+            method: 'PUT',
+            data: {
+              character: characterId,
+              armament: state.currentCharacter.weapons[i].equipId,
+              slot: i + 1
+            }
+          });
+          charWeaponsIds.push(response.data.id);
+        } catch (error) {
+          return error.response;
+        }
+      }
+    }
+    return charWeaponsIds;
   }
 
   // This function saves character information to the the backend if logged in.
@@ -216,6 +255,16 @@ function CharacterButton({ buttonType }) {
     if (state.currentUser) {
       const newCharId = await characterMainPost();
       const newCharAttrIds = await characterAttributePost(newCharId);
+      const newCharArmaIds = await characterWeaponUpdate(newCharId);
+      console.log(newCharArmaIds);
+
+      let newCharArmaArray = state.currentCharacter.weapons.map((obj, i) => {
+        return {
+          ...obj,
+          id: newCharArmaIds[i]
+        }
+      })
+
       await dispatch({
         ...state,
         currentCharacter: {
@@ -255,18 +304,35 @@ function CharacterButton({ buttonType }) {
               ...state.currentCharacter.leveledAttributes["Arcane"],
               id: newCharAttrIds[7]
             }
-          }
+          },
+          weapons: newCharArmaArray
         }
       })
     }
     localStorage.setItem('character', JSON.stringify(state.currentCharacter));
-    alert(`Character ${state.currentUser ? state.currentCharacter.id : ""} saved!`);
+    alert(`Character ${state.currentCharacter.name ? state.currentCharacter.name + " " : " "}saved!`);
   }
 
   async function handleExistingSave () {
     if (state.currentUser) {
       await characterMainPut();
       await characterAttributePatch();
+      let newCharArmaIds = await characterWeaponUpdate(state.currentUser.user_id)
+
+      let newCharArmaArray = state.currentCharacter.weapons.map((obj, i) => {
+        return {
+          ...obj,
+          id: newCharArmaIds[i]
+        }
+      })
+
+      await dispatch({
+        ...state,
+        currentCharacter: {
+          ...state.currentCharacter,
+          weapons: newCharArmaArray
+        }
+      })
     }
     localStorage.setItem('character', JSON.stringify(state.currentCharacter));
     alert(`Character ${state.currentUser ? state.currentCharacter.id : ""} saved!`);

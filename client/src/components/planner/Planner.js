@@ -90,12 +90,11 @@ function Planner () {
                 </div>
             </div>
             {
-                !state.currentCharacter.id 
-                    && <CharacterButton buttonType="save-new" />
-            }
-            {
-                state.currentCharacter.id 
-                    && <CharacterButton buttonType="save-existing" />
+                (!state.currentCharacter.id 
+                    && <CharacterButton buttonType="save-new" />)
+                ||
+                (state.currentCharacter.id 
+                    && <CharacterButton buttonType="save-existing" />)
             }
         </div>
     )

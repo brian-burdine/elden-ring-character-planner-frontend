@@ -3,13 +3,34 @@ import { useGlobalState } from "../../context/GlobalState";
 function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, index, empty}) {
     const [state, dispatch] = useGlobalState();
 
-    function handleClickNoNestNoIndexNoEmp(key, value, event) {
-        event.preventDefault();
+    function handleClickNoNestNoIndexNoEmp(key, value, e) {
+        e.preventDefault();
         dispatch({
             ...state,
             currentCharacter: {
                 ...state.currentCharacter,
                 [key]: value
+            }
+        })
+    }
+
+    function handleClickNesting(key, index, value, e) {
+        e.preventDefault();
+        let newArray = state.currentCharacter[key].map((obj, i) => {
+            if (i === index) {
+                return {
+                    ...obj,
+                    equipId: value
+                };
+            } else {
+                return obj;
+            }
+        })
+        dispatch({
+            ...state,
+            currentCharacter: {
+                ...state.currentCharacter,
+                [key]: newArray
             }
         })
     }
@@ -44,9 +65,9 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                                 {menuName}
                             </button>
                             <ul className="dropdown-menu">
-                                {sourceArray.map((obj, index) => {
+                                {sourceArray.map((obj, i) => {
                                     return (
-                                        <li key={index}>
+                                        <li key={i}>
                                             <a 
                                                 className="dropdown-item"
                                                 href="#"
@@ -81,6 +102,63 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                         )
                     }
                 </span>
+                <div className="dropdown">
+                    <button 
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                    >
+                        {menuName}
+                    </button>
+                    <ul className="dropdown-menu">
+                        <li key={-2}>
+                            <a 
+                                className="dropdown-item" 
+                                href="#"
+                                onClick={(e) => handleClickNesting(
+                                    keyName, index, null, e
+                                )}
+                            >
+                                --Empty--
+                            </a>
+                        </li>
+                        <li key={-1}>
+                            <hr className="dropdown-divider" />
+                        </li>
+                        {
+                            nestedArray.map((cat) => {
+                                return (
+                                    <>
+                                        <li key={cat}>
+                                            <h6 className="dropdown-header">
+                                                {cat}
+                                            </h6>
+                                        </li>
+                                        {
+                                            sourceArray.filter((obj) => {
+                                                return (
+                                                    cat === obj.data.category
+                                                )
+                                            }).map((obj) => {
+                                                return (
+                                                    <li key={obj.name}>
+                                                        <a
+                                                            className="dropdown-item"
+                                                            href="#"
+                                                            onClick={(e) => handleClickNesting(keyName, index, obj.id, e)}
+                                                        >
+                                                            {obj.name}
+                                                        </a>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </>
+                                )
+                            })
+                        }
+                    </ul>
+                </div>
             </div>
         )
     }

@@ -86,7 +86,7 @@ function LevelField ({ startingClasses }) {
                                         <input
                                             id={`level-${attr}`}
                                             type="text"
-                                            maxlength="2"
+                                            maxLength="2"
                                             value={state.currentCharacter.leveledAttributes[attr].value}
                                             onChange={(e) => handleChange( attr, e)}
                                         />
