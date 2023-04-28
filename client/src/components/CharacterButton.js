@@ -49,7 +49,33 @@ function CharacterButton({ buttonType }) {
             id: null,
             value: 0
           }
-        }
+        },
+        weapons: [
+          {
+            id: null,
+            equipId: null
+          }, 
+          {
+            id: null,
+            equipId: null
+          }, 
+          {
+            id: null,
+            equipId: null
+          }, 
+          {
+            id: null,
+            equipId: null
+          }, 
+          {
+            id: null,
+            equipId: null
+          }, 
+          {
+            id: null,
+            equipId: null
+          }
+        ]
         // weapons: {
         //   rightHand: [
         //     {

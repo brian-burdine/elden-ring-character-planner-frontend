@@ -5,6 +5,7 @@ import CharacterNameField from "./CharacterNameField";
 import PlannerDropdownItem from "./PlannerDropdownItem";
 import CharacterButton from "../CharacterButton";
 import LevelField from "./LevelField";
+import WeaponsField from "./WeaponsField";
 
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
@@ -67,34 +68,22 @@ function Planner () {
                     <PlannerDropdownItem 
                         menuName="Starting Class"
                         sourceArray={startingClasses} 
-                        keyName="startingClass"  
+                        keyName="startingClass"
+                        index={-1}
+                        empty={false}  
                     />
-                    {startingClasses.length > 0 
-                        && <LevelField startingClasses={startingClasses} /> 
+                    {
+                        startingClasses.length > 0 
+                            && <LevelField startingClasses={startingClasses} /> 
                     }
                 </div>
                 <div className="col-md-5">
                     <h3 className="column-header">Equipment</h3>
-                    <div className="container weapons">
-                        <div className="row">
-                            <p>Right Hand</p>
-                            <div className="col-md-4">
-                                {/* {<PlannerDropdownItem 
-                                    menuName="Right Hand 1"
-                                    sourceArray={weapons}
-                                />} */}
-                            </div>
-                            <div className="col-md-4">Weapon 2</div>
-                            <div className="col-md-4">Weapon 3</div>
-                        </div>
-                        <div className="row">
-                            <p>Left Hand</p>
-                            <div className="col-md-4">Weapon 1</div>
-                            <div className="col-md-4">Weapon 2</div>
-                            <div className="col-md-4">Weapon 3</div>
-                        </div>
-                    </div>
-                    
+                    <h5>Weapons</h5>
+                    {
+                        weapons.length > 0
+                            && <WeaponsField weapons={weapons} />
+                    }   
                 </div>
                 <div className="col-md">
                     <h3 className="column-header">Derived Statistics</h3>
