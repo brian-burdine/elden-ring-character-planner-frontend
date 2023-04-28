@@ -29,14 +29,14 @@ function LevelField ({ startingClasses }) {
         "Dexterity", "Intelligence", "Faith", "Arcane"];
 
     function handleChange (targetAttr, e) {
-        let value = Number(e.target.value);
-        if (isNaN(value)) {
-            value = 0;
+        let newValue = Number(e.target.value);
+        if (isNaN(newValue)) {
+            newValue = 0;
         }
-        let maxLevel = 99 - state.currentCharacter.leveledAttributes[targetAttr];
-        if (value > maxLevel) {
-            value = maxLevel;
-            e.target.value = value;
+        let maxLevel = 99 - state.currentCharacter.leveledAttributes[targetAttr].value;
+        if (newValue > maxLevel) {
+            newValue = maxLevel;
+            e.target.value = newValue;
         }
         dispatch({
             ...state,
@@ -44,7 +44,12 @@ function LevelField ({ startingClasses }) {
                 ...state.currentCharacter,
                 leveledAttributes: {
                     ...state.currentCharacter.leveledAttributes,
-                    [targetAttr]: value
+                    [targetAttr]: {
+                        ...state
+                            .currentCharacter
+                            .leveledAttributes[targetAttr],
+                        value: newValue
+                    }
                 }
             }
         })
@@ -81,15 +86,15 @@ function LevelField ({ startingClasses }) {
                                         <input
                                             id={`level-${attr}`}
                                             type="text"
-                                            maxlength="2"
-                                            value={state.currentCharacter.leveledAttributes[attr]}
+                                            maxLength="2"
+                                            value={state.currentCharacter.leveledAttributes[attr].value}
                                             onChange={(e) => handleChange( attr, e)}
                                         />
                                     </td>
                                     <td>
                                         {
                                             startingClass?.attributes[index].base_value
-                                                + state.currentCharacter.leveledAttributes[attr]
+                                                + state.currentCharacter.leveledAttributes[attr].value
                                         }
                                     </td>
                                 </tr>

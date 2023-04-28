@@ -13,19 +13,93 @@ import React, {
     currentUser: user ? jwtDecode(user.access) : null,
     currentUserToken: user ? user.access : null,
     currentCharacter: character ? character : {
-      id: "",
+      id: null,
       name: "",
       startingClass: 1,
       leveledAttributes: {
-        "Vigor": 0,
-        "Mind": 0,
-        "Endurance": 0,
-        "Strength": 0,
-        "Dexterity": 0,
-        "Intelligence": 0,
-        "Faith": 0,
-        "Arcane": 0
-      }
+        "Vigor": {
+          id: null,
+          value: 0
+        },
+        "Mind": {
+          id: null,
+          value: 0
+        },
+        "Endurance": {
+          id: null,
+          value: 0
+        },
+        "Strength": {
+          id: null,
+          value: 0
+        },
+        "Dexterity": {
+          id: null,
+          value: 0
+        },
+        "Intelligence": {
+          id: null,
+          value: 0
+        },
+        "Faith": {
+          id: null,
+          value: 0
+        },
+        "Arcane": {
+          id: null,
+          value: 0
+        }
+      },
+      weapons: [
+        {
+          id: null,
+          equipId: null
+        }, 
+        {
+          id: null,
+          equipId: null
+        }, 
+        {
+          id: null,
+          equipId: null
+        }, 
+        {
+          id: null,
+          equipId: null
+        }, 
+        {
+          id: null,
+          equipId: null
+        }, 
+        {
+          id: null,
+          equipId: null
+        }
+      ]
+      // weapons: {
+      //   rightHand: [
+      //     {
+      //       id: 0
+      //     }, 
+      //     {
+      //       id: 0
+      //     }, 
+      //     {
+      //       id: 0
+      //     }
+      //   ],
+      //   leftHand: [
+      //     {
+      //       id: 0
+      //     }, 
+      //     {
+      //       id: 0
+      //     }, 
+      //     {
+      //       id: 0
+      //     }
+      //   ]
+      // }
     }
   }
   

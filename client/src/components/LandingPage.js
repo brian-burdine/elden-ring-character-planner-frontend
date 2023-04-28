@@ -1,14 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalState } from '../context/GlobalState';
+import CharacterButton from './CharacterButton';
 
 function LandingPage () {
     let navigate = useNavigate();
 
     const [ state, dispatch ] = useGlobalState();
-
-    function handleAddACharacter (e) {
-        navigate("/planner");
-    }
 
     return (
         <>
@@ -24,8 +21,7 @@ function LandingPage () {
                     <h3>Your Characters:</h3>
                 </>
             )}
-            <button id='new-character' onClick={handleAddACharacter}>+</button>
-            <label htmlFor='new-character'>Create a Character</label>
+            <CharacterButton buttonType="add" />
         </>
     );
 }
