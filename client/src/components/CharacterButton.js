@@ -339,13 +339,33 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
   }
 
   async function handleEditACharacter (character) {
-    const response = await request({
-      url: 'character_attributes/',
-      method: 'GET'
-    });
-    let currCharAttrs = response.data.filter((obj) => {
-      return obj.character === character.id;
-    });
+    let currCharAttrs = [];
+    let currCharWeaps = [];
+
+    try {
+      const response = await request({
+        url: 'character_attributes/',
+        method: 'GET'
+      });
+      currCharAttrs = response.data.filter((obj) => {
+        return obj.character === character.id;
+      });
+    } catch (error) {
+      return error.response;
+    }
+
+    try {
+      const response = await request({
+        url: 'character_weapons',
+        method: 'GET'
+      });
+      // TODO: Check and make sure this is how this looks
+      currCharWeaps = response.data.filter((obj) => {
+        return obj.character === character.id;
+      });
+    } catch (error) {
+      return error.response;
+    }
 
     await dispatch({
       ...state,

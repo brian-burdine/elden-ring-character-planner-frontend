@@ -1,0 +1,16 @@
+body {
+    background: #081616;
+    color: #ffec8c;
+}
+
+th {
+    color: #976e3a;
+}
+
+td input {
+    width: 30px;
+}
+
+#character-name {
+    width: 160px;
+}

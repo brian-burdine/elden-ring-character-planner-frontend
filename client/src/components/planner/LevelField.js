@@ -4,6 +4,10 @@ import { useGlobalState } from "../../context/GlobalState";
 function LevelField ({ startingClasses }) {
     const [state, dispatch] = useGlobalState();
 
+    const levelTableHeaders = ["Attribute", "Base", "Level", "Total"];
+    const mainAttributes = ["Vigor", "Mind", "Endurance", "Strength", 
+        "Dexterity", "Intelligence", "Faith", "Arcane"];
+
     let startingClass = {};
     if (startingClasses.length > 0) {
         startingClass = startingClasses.filter((sc) => {
@@ -17,19 +21,18 @@ function LevelField ({ startingClasses }) {
             for (let attr of startingClass.attributes) {
                 level += attr.base_value;
             }
-            for (let attr of state.currentCharacter.leveledAttributes) {
-                level += attr.value;
-            }
+            // Calculating levels is going to require a different event handler 
+            //  for leaving the input field or something, so I'll just calculate
+            //  the starting level for now
+            // for (let attr of mainAttributes) {
+            //     level += state.currentCharacter.leveledAttributes[attr].value;
+            // }
         }
         return level;
     }
     let startingLevel = calculateLevel();
 
     const [level, setLevel] = useState(startingLevel);
-
-    const levelTableHeaders = ["Attribute", "Base", "Level", "Total"];
-    const mainAttributes = ["Vigor", "Mind", "Endurance", "Strength", 
-        "Dexterity", "Intelligence", "Faith", "Arcane"];
 
     function handleChange (targetAttr, e) {
         let newValue = Number(e.target.value);
@@ -62,8 +65,10 @@ function LevelField ({ startingClasses }) {
 
     return (
         <div className="level-field">
-            <h5>Level</h5>
-            <span className="ms-4">{level}</span>
+            <div className="hstack gap-5 justify-content-between">
+                <h5>Starting Level</h5>
+                <span className="align-self-center">{level}</span>
+            </div>
             <table className="table">
                 <thead>
                     <tr>
