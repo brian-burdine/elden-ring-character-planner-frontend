@@ -17,6 +17,9 @@ function LevelField ({ startingClasses }) {
             for (let attr of startingClass.attributes) {
                 level += attr.base_value;
             }
+            for (let attr of state.currentCharacter.leveledAttributes) {
+                level += attr.value;
+            }
         }
         return level;
     }
