@@ -338,25 +338,36 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
     alert(`Character ${state.currentUser ? state.currentCharacter.id : ""} saved!`);
   }
 
+  // When an 'Edit' button is clicked, the character associated with that button
+  //  needs to be put into the global state. Top-level information for that
+  //  character already has been fetched and is stored in the 'character' 
+  //  object passed to this function, but information from the bridge tables
+  //  to a character's many-to-many relationships needs to fetched and formatted
+  //  to match the global state currentCharacter object's structure
   async function handleEditACharacter (character) {
-    let currCharAttrs = [];
+    let currCharAttrsList = [];
+    let currCharAttrsObj = {};
     let currCharWeaps = [];
+    let currCharWeapsSorted = [];
 
+    // RETRIEVING
+    // get the levels for each attribute for a character
     try {
       const response = await request({
         url: 'character_attributes/',
         method: 'GET'
       });
-      currCharAttrs = response.data.filter((obj) => {
+      currCharAttrsList = response.data.filter((obj) => {
         return obj.character === character.id;
       });
     } catch (error) {
       return error.response;
     }
 
+    // get the weapons the character has equipped and what slot they're in
     try {
       const response = await request({
-        url: 'character_weapons',
+        url: 'character_weapons/',
         method: 'GET'
       });
       // TODO: Check and make sure this is how this looks
@@ -367,13 +378,42 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
       return error.response;
     }
 
+    // FORMATTING
+    // Assign attributes to correct object
+    for (let i = 0; i < mainAttributes.length; i++) {
+      currCharAttrsObj[mainAttributes[i]] = {
+        id: null,
+        value: 0
+      };
+    }
+    for (let i = 0; i < currCharAttrsList.length; i++) {
+      let attr = mainAttributes[currCharAttrsList[i].attribute - 1];
+      currCharAttrsObj[attr].id = currCharAttrsList[i].id;
+      currCharAttrsObj[attr].value = currCharAttrsList[i].value;
+    }
+
+    // Assign weapons to correct slot
+    for (let i = 0; i < 6; i++) {
+      currCharWeapsSorted.push({
+        id: null,
+        equipId: null
+      });
+    }
+    for (let i = 0; i < currCharWeaps.length; i++) {
+      let slot = currCharWeaps[i].slot - 1;
+      currCharWeapsSorted[slot].id = currCharWeaps[i].id;
+      currCharWeapsSorted[slot].equipId = currCharWeaps[i].armament;
+    }
+
     await dispatch({
       ...state,
       currentCharacter: {
         ...state.currentCharacter,
         id: character.id,
         name: character.name,
-        startingClass: character.starting_class
+        startingClass: character.starting_class,
+        leveledAttributes: currCharAttrsObj,
+        weapons: currCharWeapsSorted
       }
     });
     localStorage.setItem('character', JSON.stringify(state.currentCharacter));
