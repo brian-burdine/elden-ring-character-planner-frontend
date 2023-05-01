@@ -14,7 +14,7 @@ h1, h3 {
 }
 
 #character-name {
-    width: 160px;
+    width: 120px;
 }
 
 .dropdown-menu {
@@ -32,4 +32,12 @@ td {
 
 td input {
     width: 30px;
+}
+
+input[type=text] {
+    background-color: #154140;
+    outline: none;
+    border: 1px solid #976e3a;
+    color: #fefa7c;
+    text-align: right;
 }

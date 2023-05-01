@@ -7,6 +7,7 @@ import CharacterButton from "../CharacterButton";
 import LevelField from "./LevelField";
 import WeaponsField from "./WeaponsField";
 import CharacterList from "../CharacterList";
+import BasicDerivedStatistics from "./BasicDerivedStatistics";
 
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
@@ -88,6 +89,10 @@ function Planner () {
                 </div>
                 <div className="col-md">
                     <h3 className="column-header">Derived Statistics</h3>
+                    {
+                        startingClasses.length > 0
+                            && <BasicDerivedStatistics startingClasses={startingClasses} />
+                    }
                 </div>
             </div>
             <div className="vstack gap-2">
