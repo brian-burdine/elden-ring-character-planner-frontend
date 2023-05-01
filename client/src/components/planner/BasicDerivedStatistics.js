@@ -18,6 +18,10 @@ function BasicDerivedStatistics ({ startingClasses }) {
         {
             name: "FP",
             calc: calculateFP
+        },
+        {
+            name: "Stamina",
+            calc: calculateStam
         }
     ];
 
@@ -61,14 +65,34 @@ function BasicDerivedStatistics ({ startingClasses }) {
         return maxFP;
     }
 
+    function calculateStam () {
+        let currEnd = startingClass.attributes[2].base_value
+            + state.currentCharacter.leveledAttributes["Endurance"].value;
+        let maxStam = 0;
+
+        if (currEnd > 0 && currEnd <= 15) {
+            maxStam = Math.floor(((currEnd - 1) / 14) * 25 + 80);
+        } else if (currEnd > 15 && currEnd <= 35) {
+            maxStam = Math.floor(((currEnd - 15) / 15) * 25 + 105);
+        } else if (currEnd > 35 && currEnd <= 60) {
+            maxStam = Math.floor(((currEnd - 30) / 20) * 25 + 130);
+        } else if (currEnd > 60 && currEnd <= 99) {
+            maxStam = Math.floor(((currEnd - 50) / 49) * 15 + 155);
+        } else {
+            maxStam = "Invalid Endurance Attribute";
+        }
+
+        return maxStam;
+    }
+
     return (
         <div className="vstack gap-2">
             {
                 baseStats.map((stat) => {
                     return (
                         <div className="hstack justify-content-between">
-                            <strong>{stat.name}</strong>
-                            <strong>{stat.calc()}</strong>
+                            <p>{stat.name}</p>
+                            <p>{stat.calc()}</p>
                         </div>
                     );
                 })

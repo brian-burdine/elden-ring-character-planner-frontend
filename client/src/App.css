@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:weight@600&family=EB+Garamond&display=swap');
 
 body {
     background: #081616;
@@ -7,6 +7,17 @@ body {
 
 h1, h3 {
     font-family: 'EB Garamond', serif;
+}
+
+h5, th, span, p {
+    font-family: 'Crimson Text', serif;
+}
+
+h1 {
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 56px;
+    text-shadow: 2px;
 }
 
 .offcanvas {
@@ -19,12 +30,18 @@ h1, h3 {
 
 .input-group-text {
     background-color: #0a2c2d;
-    color: #976e3a;
+    border: 1px solid #976e3a;
+    color: #fefa7c;
 }
 
 .dropdown-menu {
+    background-color: #154140;
     max-height: 500px;
     overflow: scroll;
+}
+
+.dropdown-menu a {
+    color: #fefa7c;
 }
 
 th {
@@ -49,4 +66,10 @@ input[type=text] {
     border: 1px solid #976e3a;
     color: #fefa7c;
     text-align: right;
+}
+
+.dropdown-toggle, .navbar-toggler {
+    background-color: #154140;
+    color: #fefa7c;
+    border: 1px solid #976e3a;
 }

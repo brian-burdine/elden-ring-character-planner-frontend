@@ -6,7 +6,7 @@ function App () {
     return (
         <GlobalProvider>
             <header>
-                <h1>Elden Ring Character Planner</h1>
+                <h1>ELDEN RING Character Planner</h1>
                 <hr />
                 <NavBar />
                 <hr />

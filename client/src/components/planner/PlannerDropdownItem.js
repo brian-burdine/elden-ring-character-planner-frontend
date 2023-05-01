@@ -49,6 +49,9 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                 //Not Emptyable: startingClass
                 return (
                     <div className="drop-field">
+                        <label htmlFor={keyName}>
+                            {menuName}
+                        </label>
                         <div className="input-group">
                             <span className="input-group-text">
                                 {
@@ -58,11 +61,11 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                                 }
                             </span>
                             <button 
-                                className="btn btn-secondary dropdown-toggle" 
+                                className="btn dropdown-toggle" 
                                 type="button"
+                                id={keyName}
                                 data-bs-toggle="dropdown"
                             >
-                                {menuName}
                             </button>
                             <ul className="dropdown-menu">
                                 {sourceArray.map((obj, i) => {
@@ -135,7 +138,7 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                 </h5>
                 <div className="dropdown">
                     <button 
-                        className="btn btn-secondary dropdown-toggle"
+                        className="btn dropdown-toggle"
                         type="button"
                         data-bs-toggle="dropdown"
                     >

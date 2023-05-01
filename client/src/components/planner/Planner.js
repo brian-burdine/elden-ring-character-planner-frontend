@@ -64,7 +64,7 @@ function Planner () {
         <div className="container-fluid" id="planner-page">
             <CharacterList />
             <div className="row m-1">
-                <div className="col-md-4">
+                <div className="col-md-4 my-2">
                     <h3 className="column-header">Basic Characteristics</h3>
                     <div className="vstack gap-3 m-1">
                         <CharacterNameField />
@@ -81,7 +81,7 @@ function Planner () {
                         }
                     </div>
                 </div>
-                <div className="col-md-5">
+                <div className="col-md-5 my-2">
                     <h3 className="column-header">Equipment</h3>
                     <h5>Weapons</h5>
                     {
@@ -89,7 +89,7 @@ function Planner () {
                             && <WeaponsField weapons={weapons} />
                     }   
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 my-2">
                     <h3 className="column-header">Derived Statistics</h3>
                     {
                         startingClasses.length > 0
