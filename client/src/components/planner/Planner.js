@@ -6,6 +6,8 @@ import PlannerDropdownItem from "./PlannerDropdownItem";
 import CharacterButton from "../CharacterButton";
 import LevelField from "./LevelField";
 import WeaponsField from "./WeaponsField";
+import CharacterList from "../CharacterList";
+import BasicDerivedStatistics from "./BasicDerivedStatistics";
 
 function Planner () {
     const [ state, dispatch ] = useGlobalState();
@@ -60,8 +62,8 @@ function Planner () {
 
     return (
         <div className="container" id="planner-page">
+            <CharacterList />
             <div className="row m-3">
-                <p>The planner page!</p>
                 <div className="col-md">
                     <h3 className="column-header">Basic Characteristics</h3>
                     <CharacterNameField />
@@ -87,15 +89,22 @@ function Planner () {
                 </div>
                 <div className="col-md">
                     <h3 className="column-header">Derived Statistics</h3>
+                    {
+                        startingClasses.length > 0
+                            && <BasicDerivedStatistics startingClasses={startingClasses} />
+                    }
                 </div>
             </div>
-            {
-                (!state.currentCharacter.id 
-                    && <CharacterButton buttonType="save-new" />)
-                ||
-                (state.currentCharacter.id 
-                    && <CharacterButton buttonType="save-existing" />)
-            }
+            <div className="vstack gap-2">
+                {
+                    (!state.currentCharacter.id 
+                        && <CharacterButton buttonType="save-new" />)
+                    ||
+                    (state.currentCharacter.id 
+                        && <CharacterButton buttonType="save-existing" />)
+                }
+                <CharacterButton buttonType="reset" />
+            </div>
         </div>
     )
 }

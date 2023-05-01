@@ -50,7 +50,7 @@ function Register () {
                     currentUserToken: resp.access,
                     currentUser: data
                 })
-                navigate('/')
+                navigate('/planner')
             });
     }
 

@@ -8,6 +8,7 @@ import {
 import '@popperjs/core/dist/umd/popper.min.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import './App.css'
 import App from './App';
 import Login from './components/user/Login';
 import Register from './components/user/Register';

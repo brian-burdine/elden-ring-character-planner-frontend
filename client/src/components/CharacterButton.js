@@ -2,14 +2,14 @@ import { useNavigate } from "react-router-dom";
 import request from "../services/api.request";
 import { useGlobalState } from "../context/GlobalState";
 
-function CharacterButton({ buttonType }) {
+function CharacterButton({ buttonType, character, characters, setCharacters }) {
   let navigate = useNavigate();
   const [state, dispatch] = useGlobalState();
 
   const mainAttributes = ["Vigor", "Mind", "Endurance", "Strength", 
         "Dexterity", "Intelligence", "Faith", "Arcane"];
 
-  function handleAddACharacter () {
+  function handleReset () {
     dispatch({
       ...state,
       currentCharacter: {
@@ -79,7 +79,6 @@ function CharacterButton({ buttonType }) {
       }
     })
     localStorage.removeItem("character");
-    navigate("/planner");
   }
   
   async function characterMainPost () {
@@ -338,27 +337,118 @@ function CharacterButton({ buttonType }) {
     alert(`Character ${state.currentUser ? state.currentCharacter.id : ""} saved!`);
   }
 
-  if (buttonType === "add") {
+  // When an 'Edit' button is clicked, the character associated with that button
+  //  needs to be put into the global state. Top-level information for that
+  //  character already has been fetched and is stored in the 'character' 
+  //  object passed to this function, but information from the bridge tables
+  //  to a character's many-to-many relationships needs to fetched and formatted
+  //  to match the global state currentCharacter object's structure
+  async function handleEditACharacter (character) {
+    let currCharAttrsList = [];
+    let currCharAttrsObj = {};
+    let currCharWeaps = [];
+    let currCharWeapsSorted = [];
+
+    // RETRIEVING
+    // get the levels for each attribute for a character
+    try {
+      const response = await request({
+        url: 'character_attributes/',
+        method: 'GET'
+      });
+      currCharAttrsList = response.data.filter((obj) => {
+        return obj.character === character.id;
+      });
+    } catch (error) {
+      return error.response;
+    }
+
+    // get the weapons the character has equipped and what slot they're in
+    try {
+      const response = await request({
+        url: 'character_weapons/',
+        method: 'GET'
+      });
+      // TODO: Check and make sure this is how this looks
+      currCharWeaps = response.data.filter((obj) => {
+        return obj.character === character.id;
+      });
+    } catch (error) {
+      return error.response;
+    }
+
+    // FORMATTING
+    // Assign attributes to correct object
+    for (let i = 0; i < mainAttributes.length; i++) {
+      currCharAttrsObj[mainAttributes[i]] = {
+        id: null,
+        value: 0
+      };
+    }
+    for (let i = 0; i < currCharAttrsList.length; i++) {
+      let attr = mainAttributes[currCharAttrsList[i].attribute - 1];
+      currCharAttrsObj[attr].id = currCharAttrsList[i].id;
+      currCharAttrsObj[attr].value = currCharAttrsList[i].value;
+    }
+
+    // Assign weapons to correct slot
+    for (let i = 0; i < 6; i++) {
+      currCharWeapsSorted.push({
+        id: null,
+        equipId: null
+      });
+    }
+    for (let i = 0; i < currCharWeaps.length; i++) {
+      let slot = currCharWeaps[i].slot - 1;
+      currCharWeapsSorted[slot].id = currCharWeaps[i].id;
+      currCharWeapsSorted[slot].equipId = currCharWeaps[i].armament;
+    }
+
+    await dispatch({
+      ...state,
+      currentCharacter: {
+        ...state.currentCharacter,
+        id: character.id,
+        name: character.name,
+        startingClass: character.starting_class,
+        leveledAttributes: currCharAttrsObj,
+        weapons: currCharWeapsSorted
+      }
+    });
+    localStorage.setItem('character', JSON.stringify(state.currentCharacter));
+    navigate("/planner");
+  }
+
+  async function handleDelete (character, characters, setCharacters) {
+    const response = await request({
+      url: 'characters/' + character.id + '/',
+      method: 'DELETE'
+    });
+    let newCharacters = characters.filter((obj) => {
+      return obj.id !== character.id;
+    });
+    setCharacters(newCharacters);
+  }
+
+  if (buttonType === "reset") {
     return (
-      <>
-        <button 
-          className="btn btn-secondary add-button"
-          id="add-character"
-          onClick={handleAddACharacter}
-        >
-          +
-        </button>
-        <label htmlFor="add-character">Add a character</label>
-      </>
+      <button 
+        className="btn btn-secondary reset-button"
+        type="button"
+        onClick={handleReset}
+      >
+        Reset
+      </button>
     )
   }
   else if (buttonType === "save-new") {
     return (
       <button
         className="btn btn-secondary save-button"
+        type="button"
         onClick={handleNewSave}
       >
-        Save Character
+        Save
       </button>
     )
   }
@@ -366,9 +456,34 @@ function CharacterButton({ buttonType }) {
     return (
       <button 
         className="btn btn-secondary save-button"
+        type="button"
         onClick={handleExistingSave}
       >
-        Save Character
+        Save
+      </button>
+    )
+  }
+  else if (buttonType === "edit") {
+    return (
+      <button
+        className="btn btn-primary edit-button"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasCharacterList" 
+        onClick={(e) => handleEditACharacter(character)}
+      >
+        Edit
+      </button>
+    )
+  }
+  else if (buttonType === "del") {
+    return (
+      <button
+        className="btn btn-danger del-button"
+        type="button"
+        onClick={(e) => handleDelete(character, characters, setCharacters)}
+      >
+        Delete
       </button>
     )
   }

@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+body {
+    background: #081616;
+    color: #ffec8c;
+}
+
+h1, h3 {
+    font-family: 'EB Garamond', serif;
+}
+
+.offcanvas {
+    background: #154140;
+}
+
+#character-name {
+    width: 120px;
+}
+
+.dropdown-menu {
+    max-height: 500px;
+    overflow: scroll;
+}
+
+th {
+    color: #976e3a;
+}
+
+td {
+    color: #fefa7c
+}
+
+td input {
+    width: 30px;
+}
+
+input[type=text] {
+    background-color: #154140;
+    outline: none;
+    border: 1px solid #976e3a;
+    color: #fefa7c;
+    text-align: right;
+}

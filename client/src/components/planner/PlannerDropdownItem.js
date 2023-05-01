@@ -49,14 +49,14 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                 //Not Emptyable: startingClass
                 return (
                     <div className="drop-field">
-                        <span>
-                            {
-                                sourceArray.filter((obj) => {
-                                    return obj.id == state.currentCharacter[keyName];
-                                })[0]?.name
-                            }
-                        </span>
-                        <div className="dropdown">
+                        <div className="input-group">
+                            <span className="input-group-text">
+                                {
+                                    sourceArray.filter((obj) => {
+                                        return obj.id == state.currentCharacter[keyName];
+                                    })[0]?.name
+                                }
+                            </span>
                             <button 
                                 className="btn btn-secondary dropdown-toggle" 
                                 type="button"
@@ -80,6 +80,37 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                                 })}
                             </ul>
                         </div>
+                        {/* <h5>
+                            {
+                                sourceArray.filter((obj) => {
+                                    return obj.id == state.currentCharacter[keyName];
+                                })[0]?.name
+                            }
+                        </h5>
+                        <div className="dropdown">
+                            <button 
+                                className="btn btn-secondary dropdown-toggle" 
+                                type="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                {menuName}
+                            </button>
+                            <ul className="dropdown-menu">
+                                {sourceArray.map((obj, i) => {
+                                    return (
+                                        <li key={i}>
+                                            <a 
+                                                className="dropdown-item"
+                                                href="#"
+                                                onClick={(e) => {handleClickNoNestNoIndexNoEmp(keyName, obj.id, e)}}
+                                            >
+                                                {obj.name}
+                                            </a>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div> */}
                     </div>
                 )
             }
@@ -88,7 +119,7 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
         // Nested Array: weapons (inside weaponTypes)
         return (
             <div className="drop-field">
-                <span>
+                <h5>
                     {
                         (
                             !state.currentCharacter[keyName][index].equipId
@@ -101,7 +132,7 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                             })[0]?.name
                         )
                     }
-                </span>
+                </h5>
                 <div className="dropdown">
                     <button 
                         className="btn btn-secondary dropdown-toggle"
