@@ -22,6 +22,14 @@ function BasicDerivedStatistics ({ startingClasses }) {
         {
             name: "Stamina",
             calc: calculateStam
+        },
+        {
+            name: "Maximum Equip Load",
+            calc: calculateMaxEquip
+        },
+        {
+            name: "Discovery",
+            calc: calculateDiscovery
         }
     ];
 
@@ -83,6 +91,38 @@ function BasicDerivedStatistics ({ startingClasses }) {
         }
 
         return maxStam;
+    }
+
+    function calculateMaxEquip () {
+        let currEnd = startingClass.attributes[2].base_value
+            + state.currentCharacter.leveledAttributes["Endurance"].value;
+        let maxEquip = 0;
+
+        if (currEnd > 0 && currEnd <= 25) {
+            maxEquip = Math.round((((currEnd - 8) / 17) * 27 + 45) * 10) / 10;
+        } else if (currEnd > 25 && currEnd <= 60) {
+            maxEquip = Math.round(((((currEnd - 25) / 35) ** 1.1) * 48 + 72) * 10) / 10;
+        } else if (currEnd > 60 && currEnd <= 99) {
+            maxEquip = Math.round((((currEnd - 60) / 39) * 40 + 120) * 10) / 10;
+        } else {
+            maxEquip = "Invalid Endurance Attribute";
+        }
+
+        return maxEquip;
+    }
+
+    function calculateDiscovery () {
+        let currArc = startingClass.attributes[7].base_value
+            + state.currentCharacter.leveledAttributes["Arcane"].value;
+        let discovery = 0;
+
+        if (currArc > 0 && currArc <= 99) {
+            discovery = currArc + 100;
+        } else {
+            discovery = "Invalid Arcane Attribute";
+        }
+
+        return discovery;
     }
 
     return (

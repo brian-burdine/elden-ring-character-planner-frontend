@@ -37,7 +37,7 @@ function LevelField ({ startingClasses }) {
     function handleChange (targetAttr, e) {
         let newValue = Number(e.target.value);
         let baseValue = startingClass.attributes[mainAttributes.indexOf(targetAttr)].base_value;
-        if (isNaN(newValue)) {
+        if (isNaN(newValue) || newValue < 0) {
             newValue = 0;
         }
         let maxLevel = 99 - baseValue;
