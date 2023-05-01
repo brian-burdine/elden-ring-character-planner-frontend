@@ -24,7 +24,7 @@ function Login () {
                     currentUserToken: resp.access,
                     currentUser: data
                 })
-                navigate('/')
+                navigate('/planner')
             });
     }
 

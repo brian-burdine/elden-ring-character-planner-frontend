@@ -10,14 +10,16 @@ function CharacterList () {
 
     useEffect(() => {
         async function getCharacters () {
-            try {
-                const response = await request({
-                    url: 'characters/',
-                    method: 'GET'
-                });
-                setCharacters(response.data);
-            } catch (error) {
-                return error.response;
+            if (state.currentUser) {
+                try {
+                    const response = await request({
+                        url: 'characters/',
+                        method: 'GET'
+                    });
+                    setCharacters(response.data);
+                } catch (error) {
+                    return error.response;
+                }
             }
         }
         getCharacters();

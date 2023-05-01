@@ -468,6 +468,8 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
       <button
         className="btn btn-primary edit-button"
         type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasCharacterList" 
         onClick={(e) => handleEditACharacter(character)}
       >
         Edit

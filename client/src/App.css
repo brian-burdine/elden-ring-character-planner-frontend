@@ -9,8 +9,17 @@ h1, h3 {
     font-family: 'EB Garamond', serif;
 }
 
-.planner-page {
-    background: #0a2c2d;
+.offcanvas {
+    background: #154140;
+}
+
+#character-name {
+    width: 160px;
+}
+
+.dropdown-menu {
+    max-height: 500px;
+    overflow: scroll;
 }
 
 th {
@@ -23,8 +32,4 @@ td {
 
 td input {
     width: 30px;
-}
-
-#character-name {
-    width: 160px;
 }
