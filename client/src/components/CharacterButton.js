@@ -9,7 +9,7 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
   const mainAttributes = ["Vigor", "Mind", "Endurance", "Strength", 
         "Dexterity", "Intelligence", "Faith", "Arcane"];
 
-  function handleAddACharacter () {
+  function handleReset () {
     dispatch({
       ...state,
       currentCharacter: {
@@ -79,7 +79,6 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
       }
     })
     localStorage.removeItem("character");
-    navigate("/planner");
   }
   
   async function characterMainPost () {
@@ -431,27 +430,25 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
     setCharacters(newCharacters);
   }
 
-  if (buttonType === "add") {
+  if (buttonType === "reset") {
     return (
-      <>
-        <button 
-          className="btn btn-secondary add-button"
-          id="add-character"
-          onClick={handleAddACharacter}
-        >
-          +
-        </button>
-        <label htmlFor="add-character">Add a character</label>
-      </>
+      <button 
+        className="btn btn-secondary reset-button"
+        type="button"
+        onClick={handleReset}
+      >
+        Reset
+      </button>
     )
   }
   else if (buttonType === "save-new") {
     return (
       <button
         className="btn btn-secondary save-button"
+        type="button"
         onClick={handleNewSave}
       >
-        Save Character
+        Save
       </button>
     )
   }
@@ -459,9 +456,10 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
     return (
       <button 
         className="btn btn-secondary save-button"
+        type="button"
         onClick={handleExistingSave}
       >
-        Save Character
+        Save
       </button>
     )
   }
@@ -469,9 +467,10 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
     return (
       <button
         className="btn btn-primary edit-button"
+        type="button"
         onClick={(e) => handleEditACharacter(character)}
       >
-        Edit Character
+        Edit
       </button>
     )
   }
@@ -479,9 +478,10 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
     return (
       <button
         className="btn btn-danger del-button"
+        type="button"
         onClick={(e) => handleDelete(character, characters, setCharacters)}
       >
-        Delete Character
+        Delete
       </button>
     )
   }

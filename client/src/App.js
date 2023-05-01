@@ -1,14 +1,18 @@
 import { Outlet } from 'react-router-dom';
 import { GlobalProvider } from './context/GlobalState';
-import LandingPage from './components/LandingPage';
+import NavBar from './components/NavBar';
 
 function App () {
     return (
         <GlobalProvider>
-            <h1>Elden Ring Character Planner</h1>
-            <hr />
-            <LandingPage />
-            <Outlet />
+            <header>
+                <h1>Elden Ring Character Planner</h1>
+                <hr />
+                <NavBar />
+            </header>
+            <main>
+                <Outlet />
+            </main>
         </GlobalProvider>  
     );
 }

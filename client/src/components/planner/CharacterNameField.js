@@ -23,7 +23,9 @@ function CharacterNameField () {
                 value={state.currentCharacter.name} 
                 onChange={(e) => handleChange("name", e.target.value)} 
             />
-            <span>{state.currentCharacter?.name?.length} / 16 characters</span>
+            <div className="form-text">
+                {state.currentCharacter?.name?.length} / 16 characters
+            </div>
         </>
     )
 }

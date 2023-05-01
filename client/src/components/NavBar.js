@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useGlobalState } from "../context/GlobalState";
 import AuthService from "../services/auth.service";
+import CharacterListButton from "./CharacterListButton";
 
 function NavBar() {
     const [state, dispatch] = useGlobalState();
@@ -27,9 +28,13 @@ function NavBar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbar-content">
                     <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link to="/">Characters</Link>
-                        </li>
+                        {
+                            state.currentUser && (
+                                <li className="nav-item">
+                                    <CharacterListButton />
+                                </li>
+                            )
+                        }
                         {
                             !state.currentUser && (
                                 <li className="nav-item">
