@@ -76,22 +76,26 @@ function LevelField ({ startingClasses }) {
                         {
                             levelTableHeaders.map((header, index) => {
                                 return (
-                                    <th key={index} scope="col">{header}</th>
+                                    <th 
+                                        key={index} 
+                                        scope="col"
+                                        className={index > 0 ? "text-center" : ""}
+                                    >{header}</th>
                                 )
                             })
                         }
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="table-group-divider">
                     {
                         mainAttributes.map((attr, index) => {
                             return (
                                 <tr key={index}>
                                     <th scope="row">{attr}</th>
-                                    <td>
+                                    <td className="text-center">
                                         {startingClass?.attributes[index].base_value}
                                     </td>
-                                    <td>
+                                    <td className="text-center">
                                         <input
                                             id={`level-${attr}`}
                                             type="text"
@@ -100,7 +104,7 @@ function LevelField ({ startingClasses }) {
                                             onChange={(e) => handleChange( attr, e)}
                                         />
                                     </td>
-                                    <td>
+                                    <td className="text-center">
                                         {
                                             startingClass?.attributes[index].base_value
                                                 + state.currentCharacter.leveledAttributes[attr].value

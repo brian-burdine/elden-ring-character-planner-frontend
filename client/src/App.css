@@ -14,7 +14,12 @@ h1, h3 {
 }
 
 #character-name {
-    width: 120px;
+    width: 130px;
+}
+
+.input-group-text {
+    background-color: #0a2c2d;
+    color: #976e3a;
 }
 
 .dropdown-menu {
@@ -28,6 +33,10 @@ th {
 
 td {
     color: #fefa7c
+}
+
+.table-group-divider {
+    border-color: #976e3a;
 }
 
 td input {

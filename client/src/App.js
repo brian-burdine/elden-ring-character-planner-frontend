@@ -9,6 +9,7 @@ function App () {
                 <h1>Elden Ring Character Planner</h1>
                 <hr />
                 <NavBar />
+                <hr />
             </header>
             <main>
                 <Outlet />

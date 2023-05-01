@@ -10,7 +10,18 @@ function BasicDerivedStatistics ({ startingClasses }) {
         })[0];
     }
 
-    function calculateHp () {
+    const baseStats = [
+        {
+            name: "HP",
+            calc: calculateHP
+        }, 
+        {
+            name: "FP",
+            calc: calculateFP
+        }
+    ];
+
+    function calculateHP () {
         let currentVigor = startingClass.attributes[0].base_value
             + state.currentCharacter.leveledAttributes["Vigor"].value;
         let maxHP = 0;
@@ -30,12 +41,38 @@ function BasicDerivedStatistics ({ startingClasses }) {
         return maxHP;
     }
 
+    function calculateFP () {
+        let currentMind = startingClass.attributes[1].base_value
+            + state.currentCharacter.leveledAttributes["Mind"].value;
+        let maxFP = 0;
+
+        if (currentMind > 0 && currentMind <= 15) {
+            maxFP = Math.floor(((currentMind - 1) / 14) * 45 + 50);
+        } else if (currentMind > 15 && currentMind <= 35) {
+            maxFP = Math.floor(((currentMind - 15) / 20) * 105 + 95);
+        } else if (currentMind > 35 && currentMind <= 60) {
+            maxFP = Math.floor((1 - (1 - ((currentMind - 35) / 25)) ** 1.2) * 150 + 200);
+        } else if (currentMind > 60 && currentMind <= 99) {
+            maxFP = Math.floor(((currentMind - 60) / 39) * 100 + 350);
+        } else  {
+            maxFP = "Invalid Mind Attribute";
+        }
+
+        return maxFP;
+    }
+
     return (
         <div className="vstack gap-2">
-            <div className="hstack justify-content-between">
-                <strong>HP</strong>
-                <strong>{calculateHp()}</strong>
-            </div>
+            {
+                baseStats.map((stat) => {
+                    return (
+                        <div className="hstack justify-content-between">
+                            <strong>{stat.name}</strong>
+                            <strong>{stat.calc()}</strong>
+                        </div>
+                    );
+                })
+            }
         </div>
     );
 }
