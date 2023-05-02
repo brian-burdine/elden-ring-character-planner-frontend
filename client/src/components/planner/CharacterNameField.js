@@ -14,19 +14,22 @@ function CharacterNameField () {
     }
 
     return (
-        <>
-            <label htmlFor="character-name">Name: </label>
-            <input 
-                type="text" 
-                id="character-name" 
-                maxLength="16"
-                value={state.currentCharacter.name} 
-                onChange={(e) => handleChange("name", e.target.value)} 
-            />
-            <div className="form-text">
-                {state.currentCharacter?.name?.length} / 16 characters
+        <div className="character-name-field">
+            <label htmlFor="character-name">Name</label>
+            <div className="input-group">
+                <input 
+                    type="text" 
+                    id="character-name" 
+                    maxLength="16"
+                    value={state.currentCharacter.name} 
+                    onChange={(e) => handleChange("name", e.target.value)} 
+                />
+                <span className="input-group-text">
+                    {state.currentCharacter?.name?.length} chars
+                </span>    
             </div>
-        </>
+            <div className="form-text">16 characters max</div>
+        </div>
     )
 }
 

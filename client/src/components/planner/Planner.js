@@ -61,33 +61,35 @@ function Planner () {
     }, [])
 
     return (
-        <div className="container" id="planner-page">
+        <div className="container-fluid" id="planner-page">
             <CharacterList />
-            <div className="row m-3">
-                <div className="col-md">
+            <div className="row m-1">
+                <div className="col-md-4 my-2">
                     <h3 className="column-header">Basic Characteristics</h3>
-                    <CharacterNameField />
-                    <PlannerDropdownItem 
-                        menuName="Starting Class"
-                        sourceArray={startingClasses} 
-                        keyName="startingClass"
-                        index={-1}
-                        empty={false}  
-                    />
-                    {
-                        startingClasses.length > 0 
-                            && <LevelField startingClasses={startingClasses} /> 
-                    }
+                    <div className="vstack gap-3 m-1">
+                        <CharacterNameField />
+                        <PlannerDropdownItem 
+                            menuName="Starting Class"
+                            sourceArray={startingClasses} 
+                            keyName="startingClass"
+                            index={-1}
+                            empty={false}  
+                        />
+                        {
+                            startingClasses.length > 0 
+                                && <LevelField startingClasses={startingClasses} /> 
+                        }
+                    </div>
                 </div>
-                <div className="col-md-5">
-                    <h3 className="column-header">Equipment</h3>
-                    <h5>Weapons</h5>
+                <div className="col-md-5 my-2">
+                    <h3 className="column-header my-1">Equipment</h3>
+                    <h5 className="mx-1 my-2">Weapons</h5>
                     {
                         weapons.length > 0
                             && <WeaponsField weapons={weapons} />
                     }   
                 </div>
-                <div className="col-md">
+                <div className="col-md-3 my-2">
                     <h3 className="column-header">Derived Statistics</h3>
                     {
                         startingClasses.length > 0
@@ -95,15 +97,17 @@ function Planner () {
                     }
                 </div>
             </div>
-            <div className="vstack gap-2">
-                {
-                    (!state.currentCharacter.id 
-                        && <CharacterButton buttonType="save-new" />)
-                    ||
-                    (state.currentCharacter.id 
-                        && <CharacterButton buttonType="save-existing" />)
-                }
-                <CharacterButton buttonType="reset" />
+            <div className="row m-1">
+                <div className="vstack gap-2">
+                    {
+                        (!state.currentCharacter.id 
+                            && <CharacterButton buttonType="save-new" />)
+                        ||
+                        (state.currentCharacter.id 
+                            && <CharacterButton buttonType="save-existing" />)
+                    }
+                    <CharacterButton buttonType="reset" />
+                </div>
             </div>
         </div>
     )

@@ -24,37 +24,42 @@ function Login () {
                     currentUserToken: resp.access,
                     currentUser: data
                 })
-                navigate('/planner')
+                navigate('/');
             });
     }
 
     return (
         <div>
             <form onSubmit={handleSignIn}>
-                <div>
-                    <label htmlFor="username">Username: </label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="pass">Password: </label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        minLength="8"
-                        required
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                <div className="v-stack gap-3 my-3">
+                    <label htmlFor="login-username">Username: </label>
+                    <div className="input-group p-1">
+                        <input
+                            type="text"
+                            id="login-username"
+                            name="username"
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <label htmlFor="login-password">Password: </label>
+                    <div className="input-group p-1">
+                        <input
+                            type="password"
+                            id="login-password"
+                            name="password"
+                            minLength="8"
+                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
                 </div>
                 <input
                     type="submit"
                     value="Sign in"
+                    disabled={
+                        (username && password) ? false : true
+                    }
                 />
             </form>
         </div>
