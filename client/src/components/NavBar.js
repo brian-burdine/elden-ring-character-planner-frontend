@@ -42,7 +42,7 @@ function NavBar() {
                         }
                         {
                             !state.currentUser && (
-                                <li className="nav-item">
+                                <li className="nav-item d-flex ms-auto">
                                     <button 
                                         className="nav-link"
                                         onClick={handleNavigate}
@@ -54,12 +54,14 @@ function NavBar() {
                         }
                         {
                             state.currentUser && (
-                                <button 
-                                    className="nav-link" 
-                                    onClick={handleLogout}
-                                >
-                                    Sign Out
-                                </button>
+                                <li className="nav-item d-flex ms-auto">
+                                    <button 
+                                        className="nav-link" 
+                                        onClick={handleLogout}
+                                    >
+                                        Sign Out
+                                    </button>
+                                </li>
                             )
                         }
                     </ul>
