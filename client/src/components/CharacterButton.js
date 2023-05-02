@@ -334,7 +334,7 @@ function CharacterButton({ buttonType, character, characters, setCharacters }) {
       })
     }
     localStorage.setItem('character', JSON.stringify(state.currentCharacter));
-    alert(`Character ${state.currentUser ? state.currentCharacter.id : ""} saved!`);
+    alert(`Character ${state.currentUser ? state.currentCharacter.name : ""} saved!`);
   }
 
   // When an 'Edit' button is clicked, the character associated with that button
