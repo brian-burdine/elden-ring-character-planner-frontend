@@ -10,21 +10,19 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import './App.css'
 import App from './App';
-import Login from './components/user/Login';
-import Register from './components/user/Register';
-import Planner from './components/planner/Planner';
+import Registration from './components/user/Registration';
+import { GlobalProvider } from './context/GlobalState';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path='/' element={<App />}>
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
-          <Route path='planner' element={<Planner />} />
-        </Route>
-      </Routes>
-    </Router>
+    <GlobalProvider>
+      <Router>
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path='registration' element={<Registration />} />
+        </Routes>
+      </Router>
+    </GlobalProvider>
   </React.StrictMode>
 );

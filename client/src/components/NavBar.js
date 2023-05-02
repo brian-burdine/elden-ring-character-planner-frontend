@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../context/GlobalState";
 import AuthService from "../services/auth.service";
 import CharacterListButton from "./CharacterListButton";
 
 function NavBar() {
     const [state, dispatch] = useGlobalState();
+    let navigate = useNavigate();
 
     function handleLogout () {
         AuthService.logout();
@@ -13,6 +14,10 @@ function NavBar() {
             currentUser: null,
             currentUserToken: null
         })
+    }
+
+    function handleNavigate () {
+        navigate('/registration');
     }
 
     return (
@@ -38,14 +43,12 @@ function NavBar() {
                         {
                             !state.currentUser && (
                                 <li className="nav-item">
-                                    <Link to="/login">Sign In</Link>
-                                </li>
-                            )
-                        }
-                        {
-                            !state.currentUser && (
-                                <li className="nav-item">
-                                    <Link to="register">Register</Link>
+                                    <button 
+                                        className="nav-link"
+                                        onClick={handleNavigate}
+                                    >
+                                        Sign-In/Register
+                                    </button>
                                 </li>
                             )
                         }

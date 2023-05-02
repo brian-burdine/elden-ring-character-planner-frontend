@@ -25,9 +25,10 @@ function CharacterNameField () {
                     onChange={(e) => handleChange("name", e.target.value)} 
                 />
                 <span className="input-group-text">
-                    {state.currentCharacter?.name?.length} characters (max 16)
+                    {state.currentCharacter?.name?.length} chars
                 </span>    
             </div>
+            <div className="form-text">16 characters max</div>
         </div>
     )
 }

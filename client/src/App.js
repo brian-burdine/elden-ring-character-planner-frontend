@@ -1,10 +1,9 @@
-import { Outlet } from 'react-router-dom';
-import { GlobalProvider } from './context/GlobalState';
 import NavBar from './components/NavBar';
+import Planner from './components/planner/Planner';
 
 function App () {
     return (
-        <GlobalProvider>
+        <>
             <header>
                 <h1>ELDEN RING Character Planner</h1>
                 <hr />
@@ -12,9 +11,9 @@ function App () {
                 <hr />
             </header>
             <main>
-                <Outlet />
+                <Planner />
             </main>
-        </GlobalProvider>  
+        </>  
     );
 }
 
