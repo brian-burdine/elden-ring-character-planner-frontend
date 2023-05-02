@@ -37,7 +37,7 @@ function LevelField ({ startingClasses }) {
     function handleChange (targetAttr, e) {
         let newValue = Number(e.target.value);
         let baseValue = startingClass.attributes[mainAttributes.indexOf(targetAttr)].base_value;
-        if (isNaN(newValue)) {
+        if (isNaN(newValue) || newValue < 0) {
             newValue = 0;
         }
         let maxLevel = 99 - baseValue;
@@ -68,7 +68,7 @@ function LevelField ({ startingClasses }) {
         <div className="level-field">
             <div className="hstack gap-5 justify-content-between">
                 <h5>Starting Level</h5>
-                <span className="align-self-center">{level}</span>
+                <h5>{level}</h5>
             </div>
             <table className="table">
                 <thead>
@@ -76,22 +76,26 @@ function LevelField ({ startingClasses }) {
                         {
                             levelTableHeaders.map((header, index) => {
                                 return (
-                                    <th key={index} scope="col">{header}</th>
+                                    <th 
+                                        key={index} 
+                                        scope="col"
+                                        className={index > 0 ? "text-center" : ""}
+                                    >{header}</th>
                                 )
                             })
                         }
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="table-group-divider">
                     {
                         mainAttributes.map((attr, index) => {
                             return (
                                 <tr key={index}>
                                     <th scope="row">{attr}</th>
-                                    <td>
+                                    <td className="text-center">
                                         {startingClass?.attributes[index].base_value}
                                     </td>
-                                    <td>
+                                    <td className="text-center">
                                         <input
                                             id={`level-${attr}`}
                                             type="text"
@@ -100,7 +104,7 @@ function LevelField ({ startingClasses }) {
                                             onChange={(e) => handleChange( attr, e)}
                                         />
                                     </td>
-                                    <td>
+                                    <td className="text-center">
                                         {
                                             startingClass?.attributes[index].base_value
                                                 + state.currentCharacter.leveledAttributes[attr].value

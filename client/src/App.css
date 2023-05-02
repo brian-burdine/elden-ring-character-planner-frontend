@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:weight@600&family=EB+Garamond&display=swap');
 
 body {
     background: #081616;
@@ -9,17 +9,55 @@ h1, h3 {
     font-family: 'EB Garamond', serif;
 }
 
+h5, th, span, p {
+    font-family: 'Crimson Text', serif;
+}
+
+h1 {
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 56px;
+    text-shadow: 2px;
+}
+
 .offcanvas {
     background: #154140;
 }
 
 #character-name {
-    width: 120px;
+    width: 130px;
+}
+
+.input-group-text {
+    background-color: #0a2c2d;
+    border: 1px solid #976e3a;
+    color: #fefa7c;
 }
 
 .dropdown-menu {
+    background-color: #154140;
     max-height: 500px;
     overflow: scroll;
+}
+
+.dropdown-menu a {
+    color: #fefa7c;
+}
+
+.startingClass-drop-field {
+    min-width: 150px;
+}
+
+.startingClass-drop-field span {
+    min-width: 115px;
+}
+
+.weapons-drop-field {
+    min-width: 350px;
+}
+
+.weapons-drop-field span {
+    min-width: 260px;
 }
 
 th {
@@ -28,6 +66,10 @@ th {
 
 td {
     color: #fefa7c
+}
+
+.table-group-divider {
+    border-color: #976e3a;
 }
 
 td input {
@@ -40,4 +82,10 @@ input[type=text] {
     border: 1px solid #976e3a;
     color: #fefa7c;
     text-align: right;
+}
+
+.dropdown-toggle, .navbar-toggler {
+    background-color: #154140;
+    color: #fefa7c;
+    border: 1px solid #976e3a;
 }
