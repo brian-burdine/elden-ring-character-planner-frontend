@@ -48,7 +48,7 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
             } else {
                 //Not Emptyable: startingClass
                 return (
-                    <div className="drop-field">
+                    <div className={`${keyName}-drop-field`}>
                         <label htmlFor={keyName}>
                             {menuName}
                         </label>
@@ -63,7 +63,7 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
                             <button 
                                 className="btn dropdown-toggle" 
                                 type="button"
-                                id={keyName}
+                                id={`${keyName}-dropdown`}
                                 data-bs-toggle="dropdown"
                             >
                             </button>
@@ -121,28 +121,29 @@ function PlannerDropdownItem ({menuName, sourceArray, nestedArray, keyName, inde
     } else {    
         // Nested Array: weapons (inside weaponTypes)
         return (
-            <div className="drop-field">
-                <h5>
-                    {
-                        (
-                            !state.currentCharacter[keyName][index].equipId
-                                && "--Empty--"
-                        )
-                        || 
-                        (
-                            sourceArray.filter((obj) => {
-                                return obj.id == state.currentCharacter[keyName][index].equipId
-                            })[0]?.name
-                        )
-                    }
-                </h5>
-                <div className="dropdown">
+            <div className={`${keyName}-drop-field m-1`}>
+                <label htmlFor={`${keyName}-dropdown-${index}`}>{menuName}</label>
+                <div className="input-group">
+                    <span className="input-group-text">
+                        {
+                            (
+                                !state.currentCharacter[keyName][index].equipId
+                                    && "--Empty--"
+                            )
+                            || 
+                            (
+                                sourceArray.filter((obj) => {
+                                    return obj.id == state.currentCharacter[keyName][index].equipId
+                                })[0]?.name
+                            )
+                        }
+                    </span>
                     <button 
                         className="btn dropdown-toggle"
                         type="button"
+                        id={`${keyName}-dropdown-${index}`}
                         data-bs-toggle="dropdown"
                     >
-                        {menuName}
                     </button>
                     <ul className="dropdown-menu">
                         <li key={-2}>

@@ -44,6 +44,22 @@ h1 {
     color: #fefa7c;
 }
 
+.startingClass-drop-field {
+    min-width: 150px;
+}
+
+.startingClass-drop-field span {
+    min-width: 115px;
+}
+
+.weapons-drop-field {
+    min-width: 350px;
+}
+
+.weapons-drop-field span {
+    min-width: 260px;
+}
+
 th {
     color: #976e3a;
 }

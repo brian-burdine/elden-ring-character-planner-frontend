@@ -42,15 +42,13 @@ function WeaponDropdownField ({weapons, slot}) {
     ]
 
     return (
-        <div className="col-md-4">
-            <PlannerDropdownItem
-                menuName={`Slot ${slot}`}
-                sourceArray={weapons}
-                nestedArray={weaponTypes}
-                keyName="weapons"
-                index={slot - 1}
-            />
-        </div>
+        <PlannerDropdownItem
+            menuName={`Slot ${slot}`}
+            sourceArray={weapons}
+            nestedArray={weaponTypes}
+            keyName="weapons"
+            index={slot - 1}
+        />
     )
 }
 

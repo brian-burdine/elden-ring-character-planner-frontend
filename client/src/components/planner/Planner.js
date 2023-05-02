@@ -82,8 +82,8 @@ function Planner () {
                     </div>
                 </div>
                 <div className="col-md-5 my-2">
-                    <h3 className="column-header">Equipment</h3>
-                    <h5>Weapons</h5>
+                    <h3 className="column-header my-1">Equipment</h3>
+                    <h5 className="mx-1 my-2">Weapons</h5>
                     {
                         weapons.length > 0
                             && <WeaponsField weapons={weapons} />

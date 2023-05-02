@@ -7,8 +7,8 @@ function WeaponsField ({weapons}) {
 
     return (
         <div className="container weapons">
-            <div className="row">
-                <p>Right Hand</p>
+            <div className="row mb-2">
+                <h5>Right Hand</h5>
                 {
                     rightHandSlots.map((slot) => {
                         return (
@@ -21,8 +21,8 @@ function WeaponsField ({weapons}) {
                     })
                 }
             </div>
-            <div className="row">
-                <p>Left Hand</p>
+            <div className="row mb-2">
+                <h5>Left Hand</h5>
                 {
                     leftHandSlots.map((slot) => {
                         return (

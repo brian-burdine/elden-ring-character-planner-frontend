@@ -68,7 +68,7 @@ function LevelField ({ startingClasses }) {
         <div className="level-field">
             <div className="hstack gap-5 justify-content-between">
                 <h5>Starting Level</h5>
-                <span className="align-self-center">{level}</span>
+                <h5>{level}</h5>
             </div>
             <table className="table">
                 <thead>
